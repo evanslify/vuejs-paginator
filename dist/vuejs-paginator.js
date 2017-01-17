@@ -107,10 +107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      required: true,
 	      twoWay: true
 	    },
-	    resource_url: {
-	      type: String,
-	      required: true
-	    },
+	    resource_url: {},
 	    custom_template: '',
 	    options: {
 	      type: Object,
@@ -127,6 +124,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      next_page_url: '',
 	      prev_page_url: '',
 	      config: {
+	        page_text: 'Page',
+	        of_text: 'of',
 	        remote_data: 'data',
 	        remote_current_page: 'current_page',
 	        remote_last_page: 'last_page',
@@ -163,7 +162,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  },
 	  watch: {
-	    resource_url: function resource_url() {
+	    resource_url: function resource_url(newVal, oldVal) {
+	      if (!newVal) {
+	        return;
+	      }
 	      this.fetchData();
 	    }
 	  },
@@ -174,27 +176,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	// </script>
 	// <template>
-
 	//   <div class="v-paginator">
-
 	//     <button class="btn btn-default" @click="fetchData(prev_page_url)" :disabled="!prev_page_url">
-
 	//       {{config.previous_button_text}}
-
 	//     </button>
-
-	//     <span>Page {{current_page}} of {{last_page}}</span>
-
+	//     <span>{{config.page_text}} {{current_page}} {{config.of_text}} {{last_page}}</span>
 	//     <button class="btn btn-default" @click="fetchData(next_page_url)" :disabled="!next_page_url">
-
 	//       {{config.next_button_text}}
-
 	//     </button>
-
 	//   </div>
-
 	// </template>
-
+	
 	// <script>
 
 /***/ },
@@ -234,7 +226,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-paginator\">\r\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\r\n      {{config.previous_button_text}}\r\n    </button>\r\n    <span>Page {{current_page}} of {{last_page}}</span>\r\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\r\n      {{config.next_button_text}}\r\n    </button>\r\n  </div>";
+	module.exports = "<div class=\"v-paginator\">\n    <button class=\"btn btn-default\" @click=\"fetchData(prev_page_url)\" :disabled=\"!prev_page_url\">\n      {{config.previous_button_text}}\n    </button>\n    <span>{{config.page_text}} {{current_page}} {{config.of_text}} {{last_page}}</span>\n    <button class=\"btn btn-default\" @click=\"fetchData(next_page_url)\" :disabled=\"!next_page_url\">\n      {{config.next_button_text}}\n    </button>\n  </div>";
 
 /***/ }
 /******/ ])
