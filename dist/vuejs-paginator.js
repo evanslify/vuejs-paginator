@@ -138,8 +138,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	
 	  methods: {
-	    fetchData: function fetchData(pageUrl) {
-	      pageUrl = pageUrl || this.resource_url;
+	    fetchData: function fetchData() {
+	      var pageUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.resource_url;
+	
+	      if (!pageUrl) {
+	        return;
+	      }
 	      var self = this;
 	      this.$http.get(pageUrl, { headers: this.config.headers }).then(function (response) {
 	        self.handleResponseData(response.data);
@@ -162,10 +166,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  },
 	  watch: {
-	    resource_url: function resource_url(newVal, oldVal) {
-	      if (!newVal) {
-	        return;
-	      }
+	    resource_url: function resource_url() {
 	      this.fetchData();
 	    }
 	  },

@@ -49,8 +49,10 @@ export default {
     }
   },
   methods: {
-    fetchData (pageUrl) {
-      pageUrl = pageUrl || this.resource_url
+    fetchData (pageUrl = this.resource_url) {
+      if (!pageUrl) {
+        return
+      }
       var self = this
       this.$http.get(pageUrl, { headers: this.config.headers })
       .then(function (response) {
@@ -74,10 +76,7 @@ export default {
     }
   },
   watch : {
-    resource_url (newVal, oldVal) {
-      if (!newVal) {
-        return
-      }
+    resource_url () {
       this.fetchData()
     }
   },
